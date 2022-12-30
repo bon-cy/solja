@@ -10,32 +10,15 @@ import {
   TouchableHighlight,
   FlatList,
   Image,
-  TouchableOpacity,
 } from "react-native";
 import axios from "axios";
 
 import { useState } from "react";
 
-export default function Main({ navigation }) {
+export default function Registr({ navigation }) {
   const [text, onChangeText] = React.useState(null);
   const [number, onChangeNumber] = React.useState(null);
   const [store, setStore] = React.useState();
-
-  const sov = {
-    number: text,
-    passvord: number,
-  };
-
-  const getPassvord = () => {
-    axios
-      .get("https://63580267c27556d28934a1f9.mockapi.io/stavks")
-      .then((response) => {
-        setStore(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
 
   const postPassvords = () => {
     axios
@@ -66,7 +49,7 @@ export default function Main({ navigation }) {
             onChangeText={onChangeText}
             value={text}
             placeholder="Нрмер телефона"
-            keyboardType="default"
+            keyboardType="numeric"
           />
           <TextInput
             style={styles.input}
@@ -75,51 +58,29 @@ export default function Main({ navigation }) {
             placeholder="Пароль"
             keyboardType="numeric"
           />
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.butText}>войти</Text>
-          </TouchableOpacity>
+          <Button
+            style={styles.botton}
+            title="Войти"
+            color="#000"
+            onPress={postPassvords}
+          />
         </SafeAreaView>
-      </View>
-      <View style={styles.logoCont}>
-        <Image
-          style={styles.img}
-          source={require("/Users/macbookair/Desktop/soljaa/assets/soljapng.png")}
-        />
+        <View style={styles.logoCont}>
+          <Image
+            style={styles.img}
+            source={require("/Users/macbookair/Desktop/soljaa/assets/soljapng.png")}
+          />
+        </View>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  button: {
-    backgroundColor:"#FFF",
-    display:"flex",
-    height:25,
-    width:100,
-    justifyContent:'center',
-    alignItems:'center',
-    marginLeft:85
-  },
-  butText: {
-    color:"red"
-  },
-  container: {
-    flex: 1,
-    display: "flex",
-    backgroundColor: "#fff",
-    alignItems: "center",
-    flexDirection: "column",
-  },
-  cont: {
-    display:'flex',
-    justifyContent: "center",
-    alignItems:'center',
-    borderWidth: 1,
+  img: {
+    width: 80,
+    height: 60,
     borderRadius: 20,
-    marginTop: 50,
-    backgroundColor: "#000",
-    paddingBottom: 20,
- 
   },
   logoCont: {
     width: 355,
@@ -134,6 +95,18 @@ const styles = StyleSheet.create({
     width: "25%",
     height: "5%",
   },
+  container: {
+    flex: 1,
+    display: "flex",
+    backgroundColor: "#fff",
+
+    alignItems: "center",
+    flexDirection: "column",
+  },
+  cont: {
+    marginTop: 50,
+    backgroundColor: "#fff",
+  },
   reg: {
     marginLeft: 17,
     marginBottom: 10,
@@ -143,8 +116,12 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
-    backgroundColor: "#FFF",
+
     borderRadius: 10,
-    color: "#666",
+  },
+  botton: {
+    marginTop: 20,
+    borderWidth: 1,
+    borderColor: "red",
   },
 });
