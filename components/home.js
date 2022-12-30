@@ -15,10 +15,30 @@ import {
   ScrollView,
   ImageBackground,
 } from "react-native";
+import axios from "axios";
 
 export default function Home({ navigation }) {
+  const [store, setStore] = React.useState();
+
+
+  const getPassvord = () => {
+    axios
+      .get("https://63580267c27556d28934a1f9.mockapi.io/stavks")
+      .then((response) => {
+        setStore(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  getPassvord();
+
   const handleDarb = () => {
     navigation.navigate("Med");
+  };
+
+  const handleMAP = () => {
+    navigation.navigate("map");
   };
 
   return (
@@ -37,7 +57,7 @@ export default function Home({ navigation }) {
               />
             </View>
 
-            <Text style={styles.avaText}>Ислам</Text>
+            <Text style={styles.avaText}>islam</Text>
           </TouchableOpacity>
 
           <View style={styles.newsimgCont}>
@@ -63,14 +83,17 @@ export default function Home({ navigation }) {
 
               <View style={styles.textSloy2}>
                 <Text style={styles.sloytext2}>Грозный сегодня</Text>
-                <Text style={styles.sloytext3}>Чеченская Республика перевыполнила показатель объемов жилищного строительства в 2.5 раза</Text>
+                <Text style={styles.sloytext3}>
+                  Чеченская Республика перевыполнила показатель объемов
+                  жилищного строительства в 2.5 раза
+                </Text>
               </View>
             </ImageBackground>
           </View>
 
           <View style={styles.cont}>
             <SafeAreaView>
-              <TouchableOpacity style={styles.butt}>
+              <TouchableOpacity style={styles.butt} onPress={handleMAP}>
                 <ImageBackground
                   style={styles.bacimaga}
                   resizeMode="cover"
@@ -94,7 +117,7 @@ export default function Home({ navigation }) {
                 </ImageBackground>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.butt}>
+              <TouchableOpacity style={styles.butt} onPress={handleMAP}>
                 <ImageBackground
                   style={styles.bacimaga}
                   resizeMode="cover"
@@ -150,22 +173,19 @@ export default function Home({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  textSloy2:{
+  textSloy2: {
     width: 325,
-    height:50,
-    marginTop:15,
-    marginLeft:10
-    
-
+    height: 50,
+    marginTop: 15,
+    marginLeft: 10,
   },
-  sloytext2:{
-    marginTop:-6,
-    marginLeft:8,
+  sloytext2: {
+    marginTop: -6,
+    marginLeft: 8,
     fontSize: 18,
-    
   },
-  sloytext3:{
-    marginLeft:8,
+  sloytext3: {
+    marginLeft: 8,
     fontSize: 12,
   },
   sloytext: {
@@ -181,7 +201,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     marginTop: 0,
-   
   },
   sloyimg: {
     width: 130,
@@ -279,7 +298,7 @@ const styles = StyleSheet.create({
   cont: {
     display: "flex",
     backgroundColor: "witef",
-    marginTop: 20
+    marginTop: 20,
   },
   imgfon: {
     width: 440,
